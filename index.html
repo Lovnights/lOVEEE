@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuestro libro 💗</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f9c5d1, #fddde6);
+      font-family: 'Quicksand', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .book {
+      width: 360px;
+      height: 520px;
+      background: #fffafc;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* líneas de cuaderno */
+    .book::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          #ffe3ee,
+          #ffe3ee 2px,
+          transparent 2px,
+          transparent 34px
+        );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      padding: 42px 28px;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s ease;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .content {
+      z-index: 3;
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #e75480;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #5a2a3a;
+      line-height: 1.9;
+      white-space: pre-line;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: #b04a6f;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    /* imágenes bien puestas */
+    .img-top {
+      width: 120px;
+      margin: 0 auto 10px auto;
+      display: block;
+      animation: floaty 6s ease-in-out infinite;
+    }
+
+    .img-center {
+      width: 160px;
+      margin: 16px auto;
+      display: block;
+      animation: floaty 5s ease-in-out infinite;
+    }
+
+    .img-bottom {
+      width: 120px;
+      margin: 10px auto 0 auto;
+      display: block;
+      animation: floaty 7s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="book" id="book">
+
+    <!-- PÁGINA 1 -->
+    <div class="page active">
+      <div class="content">
+        <img src="BackgroundEraser_20260121_031711293.png" class="img-top">
+
+        <h1>Para ti 💗</h1>
+        <p>
+CONTIGO ME ANIMÉ A HABLAR  
+DE COSAS QUE SOLO  
+HABLAVA CONMIGO
+        </p>
+
+        <img src="BackgroundEraser_20260121_031739467.png" class="img-bottom">
+      </div>
+
+      <div class="hint">Toca para pasar página 📖</div>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page">
+      <div class="content">
+        <img src="BackgroundEraser_20260121_032029588.png" class="img-center">
+
+        <h1>Otra vida</h1>
+        <p>
+INCLUSO EN OTRA VIDA  
+YO RECONOCERÍA  
+TUS OJOS
+        </p>
+      </div>
+
+      <div class="hint">Sigue tocando ✨</div>
+    </div>
+
+    <!-- PÁGINA 3 -->
+    <div class="page">
+      <div class="content">
+        <img src="BackgroundEraser_20260121_031739467.png" class="img-top">
+
+        <h1>Sueños</h1>
+        <p>
+en el jardín de tus ojos  
+nacen mis sueños  
+
+entre millones de estrellas  
+te elegiría a ti ✨
+        </p>
+
+        <img src="BackgroundEraser_20260121_031711293.png" class="img-bottom">
+      </div>
+
+      <div class="hint">Fin 💗</div>
+    </div>
+
+  </div>
+
+  <!-- Música -->
+  <audio id="bgMusic" loop>
+    <source src="temachii - may you never .mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Sonido hoja -->
+  <audio id="flipSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1104.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const pages = document.querySelectorAll(".page");
+    const book = document.getElementById("book");
+    const music = document.getElementById("bgMusic");
+    const flipSound = document.getElementById("flipSound");
+
+    let currentPage = 0;
+
+    book.addEventListener("click", () => {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].classList.remove("active");
+        currentPage++;
+        pages[currentPage].classList.add("active");
+
+        music.volume = 0.5;
+        music.play().catch(() => {});
+
+        flipSound.currentTime = 0;
+        flipSound.play().catch(() => {});
+      }
+    });
+  </script>
+
+</body>
+</html>
